@@ -57,7 +57,7 @@ h3 {
     margin-bottom: 15px;
 }
 
-/* TABS */
+
 .tabs-nav {
     display: flex;
     justify-content: center;
@@ -108,8 +108,8 @@ h3 {
     }
 }
 
-/* Card Containers */
-/* Inputs & Forms */
+
+
 label {
     display: block;
     margin-bottom: 8px;
@@ -136,18 +136,18 @@ select {
 th,
 td {
     padding: 10px 10px;
-    /* Reduced vertical and horizontal padding */
+    
     text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
 
 .th-wide {
     min-width: 150px;
-    /* Reduced wide column minimum width */
+    
     max-width: 300px;
 }
 
-/* Card Containers */
+
 .section,
 .controls {
     background-color: var(--bg-card);
@@ -156,12 +156,12 @@ td {
     padding: 24px;
     margin-bottom: 24px;
     max-width: 1400px;
-    /* Increased max-width */
+    
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Inline Inputs in content */
+
 .input-group-inline {
     display: flex;
     align-items: center;
@@ -170,17 +170,34 @@ td {
     padding: 8px 16px;
     border-radius: var(--radius-input);
     width: fit-content;
-    min-width: 300px;
-    /* Ensure it's wide enough */
     border: 1px solid var(--border-color);
+    transition: border-color 0.2s;
+}
+
+.input-group-inline:focus-within {
+    border-color: #555;
+}
+
+.input-group-inline label {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    white-space: nowrap;
 }
 
 .input-group-inline input {
-    width: 100px;
-    /* Increased input width */
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 60px;
+    color: var(--text-primary);
+    text-align: right;
+    font-weight: bold;
+    font-family: inherit;
+    outline: none;
 }
 
-/* Buttons */
+
 button {
     cursor: pointer;
     font-family: inherit;
@@ -190,7 +207,7 @@ button {
     transition: all 0.2s;
 }
 
-/* Primary Action Buttons (Update Tables, etc.) */
+
 .buttons-row button {
     background-color: var(--accent-primary);
     color: #000;
@@ -219,7 +236,7 @@ button {
     margin-top: 24px;
 }
 
-/* Settings Layout */
+
 .settings-row {
     display: flex;
     gap: 20px;
@@ -242,11 +259,11 @@ button {
     border: 1px solid var(--border-color);
 }
 
-/* Tables */
+
 .table-main-container {
     overflow-x: auto;
     width: 100%;
-    /* Ensure table fits horizontally */
+    
 }
 
 table {
@@ -266,7 +283,7 @@ td {
 
 th {
     background-color: transparent;
-    /* Clean look */
+    
     color: var(--text-secondary);
     font-weight: 500;
     font-size: 0.8rem;
@@ -284,16 +301,16 @@ td {
     color: var(--text-primary);
 }
 
-/* Remove last border for clean look */
+
 tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Editable Cells */
+
 .editable {
     background-color: transparent;
     border: 1px solid transparent;
-    /* Invisible border by default */
+    
     border-radius: 4px;
     transition: background 0.2s;
     cursor: text;
@@ -314,7 +331,7 @@ tbody tr:last-child td {
     min-width: 200px;
 }
 
-/* Table Controls (Ghost/Dashed Style) - Dark Mode Version */
+
 .table-controls-wrapper {
     display: flex;
     flex-direction: row;
@@ -347,13 +364,13 @@ tbody tr:last-child td {
 
 .vertical-bar-container {
     flex-direction: column;
-    /* height set by JS */
+    
 }
 
 .edge-bar-btn {
     background-color: transparent;
     border: 1px dashed #333;
-    /* Darker dashed border */
+    
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -372,7 +389,7 @@ tbody tr:last-child td {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Hide Spinners on Number Inputs */
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -381,11 +398,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .horizontal-bar-btn {
     height: 48px;
-    /* Slightly taller for touch targets */
+    
     flex: 1;
 }
 
@@ -394,42 +412,18 @@ input[type=number] {
     flex: 1;
 }
 
-/* Footnotes */
+
 .table-footnote {
     color: #52525b;
-    /* Dark grey */
+    
     font-size: 0.8rem;
     margin-top: 16px;
 }
 
-/* Inline Inputs in content */
-.input-group-inline {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--bg-input);
-    padding: 8px 12px;
-    border-radius: var(--radius-input);
-    width: fit-content;
-    border: 1px solid var(--border-color);
-}
 
-.input-group-inline label {
-    margin: 0;
-    color: var(--text-primary);
-}
+/* Consolidated above */
 
-.input-group-inline input {
-    background: transparent;
-    border: none;
-    padding: 0;
-    width: 60px;
-    color: var(--text-primary);
-    text-align: right;
-    font-weight: bold;
-}
 
-/* Calculations Container */
 .calc-container {
     padding: 15px;
     background: rgba(255, 255, 255, 0.02);
@@ -439,7 +433,7 @@ input[type=number] {
     font-family: monospace;
 }
 
-/* Formula blocks */
+
 .calc-formula {
     background: var(--bg-input);
     padding: 12px;
@@ -452,13 +446,13 @@ input[type=number] {
     text-align: center;
 }
 
-/* Highlighting specific values if needed */
+
 .calculated {
     color: #03dac6;
     font-weight: bold;
 }
 
-/* Pyramid Visualization */
+
 #pyramid-container {
     display: flex;
     flex-direction: column;
@@ -477,8 +471,7 @@ input[type=number] {
     gap: 15px;
     color: var(--text-primary);
     position: relative;
-    /* Removed fixed width calculation dependency from JS, but JS sets inline width. 
-       We can override or enhance. */
+    
     height: 48px;
 }
 
@@ -498,29 +491,29 @@ input[type=number] {
     align-items: center;
     justify-content: center;
     border-radius: 4px;
-    /* More angular, less "toy-like" or keep rounded if preferred, user implies "blocks" */
+    
     color: #e5e5e5;
-    /* Light text */
+    
     font-weight: 600;
     font-size: 0.85rem;
     white-space: nowrap;
     min-width: 0;
-    /* Allow shrinking if needed */
+    
     flex: 1;
-    /* Stretch to fill the level container */
+    
     margin: 0 4px;
-    /* Spacing between blocks */
+    
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.2s;
 }
 
-/* Hover effect removed per request */
+
 .pyramid-item:hover {
     z-index: 10;
     border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Scrollbar styling for webkit */
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -539,7 +532,7 @@ input[type=number] {
     background: #555;
 }
 
-/* TOPSIS BARS */
+
 .topsis-bar-row {
     display: flex;
     align-items: center;
@@ -590,7 +583,7 @@ input[type=number] {
     text-shadow: 1px 1px 2px #000;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .settings-row {
         flex-direction: column;
@@ -604,7 +597,7 @@ input[type=number] {
         flex-direction: row;
         width: 100%;
         height: auto !important;
-        /* Override JS height on mobile if needed */
+        
     }
 
     .vertical-bar-btn {

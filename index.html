@@ -6,51 +6,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIKOR & TOPSIS</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .section {
+            position: relative;
+        }
+        .controls {
+            position: relative;
+        }
+        .method-badge {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background-color: rgba(63, 81, 181, 0.2);
+            color: #8c9eff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .method-badge-all {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #81c784;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="controls">
-        <h3>Налаштування рішення</h3>
-
-        <div class="settings-row">
-            <div class="settings-col">
-                <label>Експерти:</label>
-                <input type="number" id="numExperts" min="1" max="20" value="7" onchange="updateExpertNameInputs()">
-                <div id="expertNameInputs" class="names-inline"></div>
-            </div>
-
-            <div class="settings-col">
-                <label>Критерії:</label>
-                <input type="number" id="numCriteria" min="1" max="20" value="10" onchange="updateCriteriaInputs()">
-                <div id="criteriaInputs" class="names-inline"></div>
-            </div>
-
-            <div class="settings-col">
-                <label>Альтернативи:</label>
-                <input type="number" id="numAlternatives" min="1" max="20" value="8"
-                    onchange="updateAlternativesInputs()">
-                <div id="alternativesInputs" class="names-inline"></div>
-            </div>
-        </div>
-
-        <div class="buttons-row">
-            <button onclick="updateTables()">Оновити таблиці</button>
-            <button onclick="resetToDefaults()" class="btn-danger">Скинути</button>
-        </div>
-    </div>
-
-    <!-- TABS NAVIGATION -->
+    
     <div class="tabs-nav">
-        <button id="tab-btn-vikor" class="tab-btn active" onclick="switchTab('vikor')">VIKOR (Лабораторна робота
-            №1)</button>
-        <button id="tab-btn-topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS (Лабораторна робота
-            №2)</button>
+        <button data-tab="settings" class="tab-btn active" onclick="switchTab('settings')">Налаштування</button>
+        <button data-tab="vikor" class="tab-btn" onclick="switchTab('vikor')">VIKOR</button>
+        <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
+        <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
+        <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+        <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
     </div>
 
-    <!-- VIKOR TAB CONTENT -->
-    <div id="tab-vikor" class="tab-content active">
+    
+    <div id="tab-settings" class="tab-content active">
+        <div class="controls">
+            <div class="method-badge method-badge-all">Усі методи</div>
+            <h3>Налаштування рішення</h3>
+
+            <div class="settings-row">
+                <div class="settings-col">
+                    <label>Експерти:</label>
+                    <input type="number" id="numExperts" min="1" max="20" value="7" onchange="updateExpertNameInputs()">
+                    <div id="expertNameInputs" class="names-inline"></div>
+                </div>
+
+                <div class="settings-col">
+                    <label>Критерії:</label>
+                    <input type="number" id="numCriteria" min="1" max="20" value="10" onchange="updateCriteriaInputs()">
+                    <div id="criteriaInputs" class="names-inline"></div>
+                </div>
+
+                <div class="settings-col">
+                    <label>Альтернативи:</label>
+                    <input type="number" id="numAlternatives" min="1" max="20" value="8"
+                        onchange="updateAlternativesInputs()">
+                    <div id="alternativesInputs" class="names-inline"></div>
+                </div>
+            </div>
+
+            <div class="buttons-row">
+                <button onclick="updateTables()">Оновити таблиці</button>
+                <button onclick="resetToDefaults()" class="btn-danger">Скинути</button>
+            </div>
+        </div>
+
+        <div id="alternatives-tables-container-settings"></div>
+
         <div class="section">
+            <div class="method-badge method-badge-all">Усі методи</div>
+            <h2>Процедура розрахунку ваги критеріїв</h2>
+            <table id="table1_10_settings"></table>
+        </div>
+
+        <div class="section">
+            <div class="method-badge">VIKOR</div>
+            <h2>Коефіцієнт вагомості α<sub>ke</sub></h2>
+            <p class="table-footnote" style="text-align: left; margin-top: -10px; margin-bottom: 15px;"><em>Цей коефіцієнт (від 0 до 1) визначає вагу між об'єктивною компетентністю експерта (посада/освіта) та його самооцінкою. Чим значення ближче до 1, тим більшу роль відіграє об'єктивна кваліфікація експерта, розрахована за першими таблицями.</em></p>
+            <div class="input-group-inline">
+                <label>Значення α<sub>ke</sub></label>
+                <input type="number" id="alphaKe" step="0.1" min="0" max="1" value="0.8" oninput="updateTables()">
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="method-badge">VIKOR</div>
+            <h2>Значення v (вага стратегії максимуму)</h2>
+            <p class="table-footnote" style="text-align: left; margin-top: -10px; margin-bottom: 15px;"><em>Вага стратегії більшості критеріїв (0 ≤ v ≤ 1). Використовується в методі VIKOR для визначення агрегованого показника Q. Значення v > 0.5 означає перевагу голосування за "більшістю", v ≈ 0.5 відповідає "консенсусу", а v < 0.5 — позиції з правом вето.</em></p>
+            <div class="input-group-inline" style="margin-bottom: 15px;">
+                <label for="vValue">Значення v:</label>
+                <input type="number" id="vValue" value="0.5" step="0.1" min="0" max="1"
+                    onchange="updateVValue(this.value)">
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="method-badge">VIKOR</div>
             <h2>Вербально-числова шкала оцінки кваліфікації експертів</h2>
             <div class="table-controls-wrapper">
                 <div class="table-main-container">
@@ -69,6 +126,7 @@
         </div>
 
         <div class="section">
+            <div class="method-badge">VIKOR</div>
             <h2>Оцінки впливу джерела інформації на думку експерта</h2>
             <div class="table-controls-wrapper">
                 <div class="table-main-container">
@@ -82,6 +140,30 @@
         </div>
 
         <div class="section">
+            <div class="method-badge">VIKOR</div>
+            <h2>Показники кваліфікації експертів</h2>
+            <table id="table3_settings"></table>
+        </div>
+
+        <div class="section">
+            <div class="method-badge">VIKOR</div>
+            <h2>Анкетування щодо самооцінки експерта</h2>
+            <table id="table4_settings"></table>
+        </div>
+
+        <div class="tabs-nav" style="margin-top: 40px; margin-bottom: 20px;">
+            <button data-tab="settings" class="tab-btn active" onclick="switchTab('settings')">Налаштування</button>
+            <button data-tab="vikor" class="tab-btn" onclick="switchTab('vikor')">VIKOR</button>
+            <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
+            <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
+            <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
+        </div>
+    </div>
+
+    
+    <div id="tab-vikor" class="tab-content">
+        <div class="section">
             <h2>Показники кваліфікації експертів</h2>
             <table id="table3"></table>
         </div>
@@ -93,15 +175,10 @@
 
         <div class="section">
             <h2>Нормовані значення коефіцієнтів компетентності</h2>
-            <div class="input-group-inline">
-                <label>Коефіфіцієнт вагомості α<sub>ke</sub>:</label>
-                <input type="number" id="alphaKe" step="0.1" min="0" max="1" value="0.8" oninput="updateTables()">
-            </div>
+            <div class="calc-formula" style="margin-bottom: 15px;">Введене значення α<sub>ke</sub></div>
             <div id="coefficient-calculations" class="calc-container"></div>
             <table id="table5"></table>
         </div>
-
-        <div id="alternatives-tables-container"></div>
 
         <div class="section">
             <h2>Матриця рішень щодо оцінки альтернатив (Крок 1)</h2>
@@ -130,11 +207,7 @@
 
         <div class="section">
             <h2>Значення показника Q та ранжування альтернатив</h2>
-            <div class="input-group-inline" style="margin-bottom: 15px;">
-                <label for="vValue">Значення v (вага стратегії):</label>
-                <input type="number" id="vValue" value="0.5" step="0.1" min="0" max="1"
-                    onchange="updateVValue(this.value)">
-            </div>
+            <div class="calc-formula" style="margin-bottom: 15px;">Введене значення v = <span id="display-vvalue">0.5</span></div>
             <table id="table1_14"></table>
         </div>
 
@@ -146,32 +219,41 @@
             <div id="pyramid-container"></div>
             <div id="pyramid-legend"
                 style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; font-size: 14px; color: #a1a1aa;">
-                <div><span style="color: rgba(0, 188, 212, 1);">■</span> За S<sub>j</sub></div>
-                <div><span style="color: rgba(255, 215, 0, 1);">■</span> За R<sub>j</sub></div>
-                <div><span style="color: rgba(255, 105, 180, 1);">■</span> За Q</div>
+                <div><span style="color: rgba(63, 81, 181, 1);">■<sub></div>
+                <div><span style="color: rgba(76, 175, 80, 1);">■<sub></div>
+                <div><span style="color: rgba(156, 39, 176, 1);">■<div>
             </div>
+        </div>
+
+        <div class="tabs-nav" style="margin-top: 40px; margin-bottom: 20px;">
+            <button data-tab="settings" class="tab-btn" onclick="switchTab('settings')">Налаштування</button>
+            <button data-tab="vikor" class="tab-btn active" onclick="switchTab('vikor')">VIKOR</button>
+            <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
+            <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
+            <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
         </div>
     </div>
 
-    <!-- TOPSIS TAB CONTENT -->
+    
     <div id="tab-topsis" class="tab-content">
         <div class="section">
             <h2>Матриця рішень з агрегованими оцінками альтернатив</h2>
             <p class="table-footnote"><em>Ця матриця аналогічна результатам першого етапу методу VIKOR, де оцінки
-                    експертів агреговані з урахуванням їхньої компетентності.</em></p>
+                    експертів агреговані з урахуванням їхньої компетентності.<p>
             <table id="table_topsis_1"></table>
         </div>
 
         <div class="section">
             <h2>Вагові коефіцієнти критеріїв</h2>
-            <p class="table-footnote"><em>Обчислені на першому етапі (в методі VIKOR).</em></p>
+            <p class="table-footnote"><em>Обчислені на першому етапі (в методі VIKOR).<p>
             <table id="table_topsis_1_weights"></table>
         </div>
 
         <div class="section">
             <h2>Нормалізована матриця рішень</h2>
             <div class="calc-formula">
-                r<sub>ij</sub> = x<sub>ij</sub> / √∑(x<sub>ij</sub>)²
+                r<sub>ij<sub> sub>)²
             </div>
             <table id="table_topsis_2"></table>
         </div>
@@ -179,7 +261,7 @@
         <div class="section">
             <h2>Зважена нормалізована матриця рішень</h2>
             <div class="calc-formula">
-                v<sub>ij</sub> = w<sub>j</sub> · r<sub>ij</sub>
+                v<sub>ij<sub> · r<sub>ij</sub>
             </div>
             <table id="table_topsis_3"></table>
         </div>
@@ -192,7 +274,7 @@
         <div class="section">
             <h2>Відстані до ідеальних розв'язків</h2>
             <div class="calc-formula">
-                D<sub>i</sub>⁺ = √∑(v<sub>ij</sub> - v<sub>j</sub>⁺)² , D<sub>i</sub>⁻ = √∑(v<sub>ij</sub> -
+                D<sub>i<sub> - v<sub>j<sub>⁻ = √∑(v<sub>ij</sub> -
                 v<sub>j</sub>⁻)²
             </div>
             <table id="table_topsis_5"></table>
@@ -210,10 +292,155 @@
             <h3 style="text-align: center;">Візуалізація ранжування</h3>
             <div id="topsis-bars-container" style="max-width: 800px; margin: 0 auto; padding-top: 20px;"></div>
         </div>
+
+        <div class="tabs-nav" style="margin-top: 40px; margin-bottom: 20px;">
+            <button data-tab="settings" class="tab-btn" onclick="switchTab('settings')">Налаштування</button>
+            <button data-tab="vikor" class="tab-btn" onclick="switchTab('vikor')">VIKOR</button>
+            <button data-tab="topsis" class="tab-btn active" onclick="switchTab('topsis')">TOPSIS</button>
+            <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
+            <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
+        </div>
+    </div>
+
+    <!-- MOORA TAB CONTENT -->
+    <div id="tab-moora" class="tab-content">
+        <div class="section">
+            <h2>Матриця рішень з агрегованими оцінками альтернатив</h2>
+            <table id="table_moora_1"></table>
+        </div>
+
+        <div class="section">
+            <h2>Вагові коефіцієнти критеріїв</h2>
+            <table id="table_moora_1_weights"></table>
+        </div>
+
+        <div class="section">
+            <h2>Нормалізована матриця рішень</h2>
+            <div class="calc-formula">
+                r<sub>ij</sub> = x<sub>ij</sub> / √∑(x<sub>ij</sub>)²
+            </div>
+            <table id="table_moora_2"></table>
+        </div>
+
+        <div class="section">
+            <h2>Зважена нормалізована матриця рішень з ваговими коефіцієнтами критеріїв та показниками A*, D<sub>i</sub><sup>*</sup></h2>
+            <div class="calc-formula">
+                v<sub>ij</sub> = w<sub>j</sub> · r<sub>ij</sub>
+            </div>
+            <table id="table_moora_3"></table>
+        </div>
+
+        <div class="section" id="moora-chart-section">
+            <h3 style="text-align: center;">Візуалізація ранжування</h3>
+            <div id="moora-bars-container" style="max-width: 800px; margin: 0 auto; padding-top: 20px;"></div>
+        </div>
+
+        <div class="tabs-nav" style="margin-top: 40px; margin-bottom: 20px;">
+            <button data-tab="settings" class="tab-btn" onclick="switchTab('settings')">Налаштування</button>
+            <button data-tab="vikor" class="tab-btn" onclick="switchTab('vikor')">VIKOR</button>
+            <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
+            <button data-tab="moora" class="tab-btn active" onclick="switchTab('moora')">MOORA</button>
+            <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
+        </div>
+    </div>
+
+    <!-- SAW TAB CONTENT -->
+    <div id="tab-saw" class="tab-content">
+        <div class="section">
+            <h2>Матриця рішень з агрегованими оцінками альтернатив</h2>
+            <table id="table_saw_1"></table>
+        </div>
+
+        <div class="section">
+            <h2>Вагові коефіцієнти критеріїв</h2>
+            <table id="table_saw_1_weights"></table>
+        </div>
+
+        <div class="section">
+            <h2>Нормалізована матриця рішень</h2>
+            <div class="calc-formula" style="font-size: 0.9em;">
+                Max: r<sub>ij</sub> = x<sub>ij</sub> / max(x<sub>j</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; Min: r<sub>ij</sub> = min(x<sub>j</sub>) / x<sub>ij</sub>
+            </div>
+            <table id="table_saw_2"></table>
+        </div>
+
+        <div class="section">
+            <h2>Зважена нормалізована матриця рішень з ваговими коефіцієнтами критеріїв та показником S<sub>i</sub><sup>*</sup></h2>
+            <div class="calc-formula">
+                v<sub>ij</sub> = w<sub>j</sub> · r<sub>ij</sub><br>
+                S<sub>i</sub><sup>*</sup> = ∑ v<sub>ij</sub>
+            </div>
+            <table id="table_saw_3"></table>
+        </div>
+
+        <div class="section" id="saw-chart-section">
+            <h3 style="text-align: center;">Візуалізація ранжування</h3>
+            <div id="saw-bars-container" style="max-width: 800px; margin: 0 auto; padding-top: 20px;"></div>
+        </div>
+
+        <div class="tabs-nav" style="margin-top: 40px; margin-bottom: 20px;">
+            <button data-tab="settings" class="tab-btn" onclick="switchTab('settings')">Налаштування</button>
+            <button data-tab="vikor" class="tab-btn" onclick="switchTab('vikor')">VIKOR</button>
+            <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
+            <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
+            <button data-tab="saw" class="tab-btn active" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
+        </div>
+    </div>
+
+    <!-- COMPARISON TAB CONTENT -->
+    <div id="tab-comparison" class="tab-content">
+        <div class="section">
+            <h2>Зведена таблиця рангів альтернатив</h2>
+            <table id="table_comparison_summary"></table>
+        </div>
+
+        <div class="section">
+            <h3 style="text-align: center;">Сумарний графік рангів (чим менше тим краще)</h3>
+            <div id="comparison-bars-container" style="max-width: 800px; margin: 0 auto; padding-top: 20px;"></div>
+        </div>
+        
+        <div style="max-width: 1400px; margin: 0 auto 40px auto; display: flex; flex-direction: column; gap: 24px;">
+            <h2 style="text-align: center; margin: 0;">Детальні візуалізації методів</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch;">
+                <div class="section" style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">VIKOR</h3>
+                    <div id="vikor-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
+                </div>
+
+                <div class="section" style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">TOPSIS</h3>
+                    <div id="topsis-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
+                </div>
+
+                <div class="section" style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">MOORA</h3>
+                    <div id="moora-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
+                </div>
+
+                <div class="section" style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">SAW</h3>
+                    <div id="saw-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs-nav" style="margin-bottom: 20px;">
+            <button data-tab="settings" class="tab-btn" onclick="switchTab('settings')">Налаштування</button>
+            <button data-tab="vikor" class="tab-btn" onclick="switchTab('vikor')">VIKOR</button>
+            <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
+            <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
+            <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="comparison" class="tab-btn active" onclick="switchTab('comparison')">Порівняння</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
     <script src="topsis.js"></script>
+    <script src="moora.js"></script>
+    <script src="saw.js"></script>
 </body>
 
 </html>

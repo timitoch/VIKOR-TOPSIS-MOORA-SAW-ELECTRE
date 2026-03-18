@@ -409,7 +409,11 @@ function generateTable3() {
     html += '</tr>';
 
     html += '</tbody>';
-    table.innerHTML = html;
+
+    const tableSettings = document.getElementById('table3_settings');
+    const tableVikor = document.getElementById('table3');
+    if (tableSettings) tableSettings.innerHTML = html;
+    if (tableVikor) tableVikor.innerHTML = html.replace(/class="editable[^"]*"/g, 'style="color: #e4e4e7;"').replace(/contenteditable="true"/g, '').replace(/onblur="[^"]+"/g, '');
 }
 
 function generateTable4() {
@@ -450,12 +454,16 @@ function generateTable4() {
     }
 
     html += '<tr>';
-    html += '<td><img src="https://latex.codecogs.com/svg.latex?\\sum_{n=1}^N%20a_n" class="sum-icon"></td>';
+    html += '<td><b>∑ a<sub>n</sub></b></td>';
     for (let i = 0; i < numExperts; i++) {
         html += `<td class="calculated">${Math.round(sums[i] * 100) / 100}</td>`;
     }
     html += '</tr></tbody>';
-    table.innerHTML = html;
+
+    const tableSettings = document.getElementById('table4_settings');
+    const tableVikor = document.getElementById('table4');
+    if (tableSettings) tableSettings.innerHTML = html;
+    if (tableVikor) tableVikor.innerHTML = html.replace(/class="editable[^"]*"/g, 'style="color: #e4e4e7;"').replace(/contenteditable="true"/g, '').replace(/onblur="[^"]+"/g, '');
 }
 
 function updateSelfAssessmentValue(cell) {
@@ -551,6 +559,12 @@ function generateTable5() {
             }
         }
         currentData.alphaKe = alphaKe;
+
+        // Update display span in VIKOR tab
+        const alphaDisplay = document.getElementById('display-alphake');
+        if (alphaDisplay) {
+            alphaDisplay.innerText = alphaKe;
+        }
     }
 
     while (currentData.phiValues.length < numExperts) {
@@ -624,7 +638,11 @@ function generateTable5() {
         tableHtml += `<td class="calculated bold-cell">${Math.round(normK * 100) / 100}</td>`;
     }
     tableHtml += '</tr></tbody>';
-    table.innerHTML = tableHtml;
+
+    const tableSettings = document.getElementById('table5_settings');
+    const tableVikor = document.getElementById('table5');
+    if (tableSettings) tableSettings.innerHTML = tableHtml;
+    if (tableVikor) tableVikor.innerHTML = tableHtml;
 
     // Save normalized weights for later use
     currentData.normalizedExpertWeights = KnValues.map(k => sumKn !== 0 ? k / sumKn : 0);
@@ -738,7 +756,7 @@ function updateAlternativesInputs() {
 }
 
 function generateAlternativesTables() {
-    const container = document.getElementById('alternatives-tables-container');
+    const container = document.getElementById('alternatives-tables-container-settings');
     const numExperts = parseInt(document.getElementById('numExperts').value) || currentData.numExperts;
 
     initializeEstimates();
@@ -762,7 +780,8 @@ function generateAlternativesTables() {
 
     currentData.alternatives.forEach((alt, altIdx) => {
         html += `<div class="section">`;
-        html += `<h3>Таблиця 2.${altIdx + 1} – Експертні оцінки ${alt}</h3>`;
+        html += `<div class="method-badge method-badge-all">Усі методи</div>`;
+        html += `<h2>Експертні оцінки ${alt}</h2>`;
         html += `<table><thead><tr>`;
         html += `<th>${alt}</th>`;
         currentData.criteria.forEach((crit, cIdx) => {
@@ -827,7 +846,14 @@ function generateTable1_10() {
 
     const numCriteria = currentData.criteria.length;
 
-    let html = `<thead>
+    let htmlSettings = `<thead>
+        <tr>
+            <th>Критерій</th>
+            <th>Пріоритетність критерію</th>
+        </tr>
+    </thead><tbody>`;
+
+    let htmlVikor = `<thead>
         <tr>
             <th>Критерій</th>
             <th>Пріоритетність критерію</th>
@@ -914,9 +940,14 @@ function generateTable1_10() {
             ? `w<sub>${item.originalIndex + 1}</sub> = ${item.avgPoints.toFixed(1)} / ${totalAveragePoints.toFixed(1)} = ${weight.toFixed(2)}`
             : '0';
 
-        html += `<tr>
+        htmlSettings += `<tr>
             <td class="text-left">${item.crit}</td>
             <td class="editable" contenteditable="true" onblur="updateCriteriaPriority(${item.originalIndex}, this.innerText)">${item.priorityStr}</td>
+        </tr>`;
+
+        htmlVikor += `<tr>
+            <td class="text-left">${item.crit}</td>
+            <td style="color: #e4e4e7;">${item.priorityStr}</td>
             <td class="calculated">${item.pointsSumStr}</td>
             <td class="calculated">${item.avgPointsStr}</td>
             <td class="calculated">${weightStr}</td>
@@ -932,7 +963,7 @@ function generateTable1_10() {
         }
     });
 
-    html += `<tr style="font-weight: bold; background-color: rgba(255, 255, 255, 0.05);">
+    htmlVikor += `<tr style="font-weight: bold; background-color: rgba(255, 255, 255, 0.05);">
         <td>Σ</td>
         <td></td>
         <td></td>
@@ -940,8 +971,13 @@ function generateTable1_10() {
         <td>Σ w<sub>j</sub> = ${sumWeights.toFixed(2)}</td>
     </tr>`;
 
-    html += '</tbody>';
-    table.innerHTML = html;
+    htmlSettings += '</tbody>';
+    htmlVikor += '</tbody>';
+
+    const tableSettings = document.getElementById('table1_10_settings');
+    const tableVikor = document.getElementById('table1_10');
+    if (tableSettings) tableSettings.innerHTML = htmlSettings;
+    if (tableVikor) tableVikor.innerHTML = htmlVikor;
 }
 
 function generateTable1_11() {
@@ -1165,6 +1201,13 @@ function updateVValue(val) {
     }
 
     currentData.vValue = v;
+
+    // Update display span in VIKOR tab
+    const vDisplay = document.getElementById('display-vvalue');
+    if (vDisplay) {
+        vDisplay.innerText = v;
+    }
+
     updateTables();
 }
 
@@ -1214,6 +1257,9 @@ function generateTable1_14() {
 
     let rankMap = {};
     sortedQ.forEach(item => rankMap[item.idx] = item.rank);
+
+    currentData.rankings = currentData.rankings || {};
+    currentData.rankings.vikor = rankMap;
 
     let html = '<thead><tr>';
     html += '<th class="text-left">Альтернатива</th>';
@@ -1417,20 +1463,20 @@ function generatePyramidVisualization() {
 
 
             const colors = [];
-            if (types.includes('S')) colors.push('rgba(0, 188, 212, 0.15)');
-            if (types.includes('R')) colors.push('rgba(255, 215, 0, 0.15)');
-            if (types.includes('Q')) colors.push('rgba(255, 105, 180, 0.15)');
+            if (types.includes('S')) colors.push('rgba(63, 81, 181, 0.4)'); // Indigo
+            if (types.includes('R')) colors.push('rgba(76, 175, 80, 0.4)'); // Green
+            if (types.includes('Q')) colors.push('rgba(156, 39, 176, 0.4)'); // Purple
 
             let bgStyle;
             if (colors.length === 1) {
-                bgStyle = `background-color: ${colors[0]}; border-color: ${colors[0].replace('0.15', '0.4')}`;
+                bgStyle = `background-color: ${colors[0]}; border-color: ${colors[0].replace('0.4', '0.6')}`;
             } else if (colors.length === 2) {
-                bgStyle = `background: linear-gradient(to right, ${colors[0]} 40%, ${colors[1]} 60%); border-color: rgba(255,255,255,0.2)`;
+                bgStyle = `background: linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%); border-color: rgba(255,255,255,0.2)`;
             } else {
-                bgStyle = `background: linear-gradient(to right, ${colors[0]} 25%, ${colors[1]} 50%, ${colors[2]} 75%); border-color: rgba(255,255,255,0.2)`;
+                bgStyle = `background: linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%); border-color: rgba(255,255,255,0.2)`;
             }
 
-            html += `<div class="pyramid-item" style="${bgStyle}" title="${name}">
+            html += `<div class="pyramid-item" style="${bgStyle}; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 0 5px;" title="${name}">
                         ${name}
                      </div>`;
         }
@@ -1439,6 +1485,49 @@ function generatePyramidVisualization() {
     }
 
     container.innerHTML = html;
+}
+
+function buildPyramidHtml(S, R, Q, alternatives, baseLevelWidth, widthIncrement) {
+    if (S.length === 0 || R.length === 0 || Q.length === 0) return '';
+
+    const sortedS = S.map((val, idx) => ({ val, idx, name: alternatives[idx] })).sort((a, b) => a.val - b.val);
+    const sortedR = R.map((val, idx) => ({ val, idx, name: alternatives[idx] })).sort((a, b) => a.val - b.val);
+    const sortedQ = Q.map((val, idx) => ({ val, idx, name: alternatives[idx] })).sort((a, b) => a.val - b.val);
+    const numLevels = alternatives.length;
+    let html = '';
+
+    for (let level = 0; level < numLevels; level++) {
+        const altsAtLevel = [];
+        if (sortedS[level]) altsAtLevel.push({ name: sortedS[level].name, type: 'S' });
+        if (sortedR[level]) altsAtLevel.push({ name: sortedR[level].name, type: 'R' });
+        if (sortedQ[level]) altsAtLevel.push({ name: sortedQ[level].name, type: 'Q' });
+
+        const grouped = {};
+        altsAtLevel.forEach(alt => {
+            if (!grouped[alt.name]) grouped[alt.name] = [];
+            grouped[alt.name].push(alt.type);
+        });
+
+        const currentLevelWidth = baseLevelWidth + (level * widthIncrement);
+        html += `<div class="pyramid-level" style="width: ${currentLevelWidth}px;">`;
+        html += `<div class="pyramid-level-number">${level + 1}</div>`;
+
+        for (const [name, types] of Object.entries(grouped)) {
+            const colors = [];
+            if (types.includes('S')) colors.push('rgba(63, 81, 181, 0.4)');
+            if (types.includes('R')) colors.push('rgba(76, 175, 80, 0.4)');
+            if (types.includes('Q')) colors.push('rgba(156, 39, 176, 0.4)');
+
+            let bgStyle;
+            if (colors.length === 1) bgStyle = `background-color: ${colors[0]}; border-color: ${colors[0].replace('0.4', '0.6')}`;
+            else if (colors.length === 2) bgStyle = `background: linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%); border-color: rgba(255,255,255,0.2)`;
+            else bgStyle = `background: linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%); border-color: rgba(255,255,255,0.2)`;
+
+            html += `<div class="pyramid-item" style="${bgStyle}; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 0 5px;" title="${name}">${name}</div>`;
+        }
+        html += `</div>`;
+    }
+    return html;
 }
 
 function updateTables() {
@@ -1459,6 +1548,134 @@ function updateTables() {
     generateAlternativesTables();
     updateScaleUIControls();
     generateTopsisTables();
+    if (typeof generateMooraTables === "function") {
+        generateMooraTables();
+    }
+    if (typeof generateSawTables === "function") {
+        generateSawTables();
+    }
+
+    // Generate comparison tab after all methods
+    generateComparison();
+}
+
+function generateComparison() {
+    const table = document.getElementById('table_comparison_summary');
+    if (!table) return;
+
+    const rankings = currentData.rankings || {};
+    const alts = currentData.alternatives || [];
+    const vikorRanks = rankings.vikor || {};
+    const topsisRanks = rankings.topsis || {};
+    const mooraRanks = rankings.moora || {};
+    const sawRanks = rankings.saw || {};
+
+    let html = '<thead><tr>';
+    html += '<th class="text-left">Альтернатива</th>';
+    html += '<th>VIKOR (Q)</th>';
+    html += '<th>TOPSIS (C<sub>i</sub>)</th>';
+    html += '<th>MOORA (D<sub>i</sub><sup>*</sup>)</th>';
+    html += '<th>SAW (S<sub>i</sub><sup>*</sup>)</th>';
+    html += '<th>Середній ранг</th>';
+    html += '</tr></thead><tbody>';
+
+    const comparisonData = [];
+
+    alts.forEach((alt, idx) => {
+        const rVikor = vikorRanks[idx] || 0;
+        const rTopsis = topsisRanks[idx] || 0;
+        const rMoora = mooraRanks[idx] || 0;
+        const rSaw = sawRanks[idx] || 0;
+
+        const avg = (rVikor + rTopsis + rMoora + rSaw) / 4;
+        comparisonData.push({ alt, avg, rVikor, rTopsis, rMoora, rSaw });
+    });
+
+    comparisonData.sort((a, b) => a.avg - b.avg);
+
+    comparisonData.forEach(item => {
+        html += '<tr>';
+        html += `<td class="text-left bold-cell">${item.alt}</td>`;
+        html += `<td class="calculated">${item.rVikor}</td>`;
+        html += `<td class="calculated">${item.rTopsis}</td>`;
+        html += `<td class="calculated">${item.rMoora}</td>`;
+        html += `<td class="calculated">${item.rSaw}</td>`;
+        html += `<td class="calculated bold-cell" style="color: #ffffff;">${item.avg.toFixed(2)}</td>`;
+        html += '</tr>';
+    });
+
+    html += '</tbody>';
+    table.innerHTML = html;
+
+    // Generate comparison chart
+    const chartContainer = document.getElementById('comparison-bars-container');
+    if (chartContainer) {
+        let chartHtml = '';
+        const maxAvg = comparisonData.length > 0 ? comparisonData[comparisonData.length - 1].avg : 1;
+
+        comparisonData.forEach(item => {
+            // we want smaller ranks to be "better", so maybe reverse the bar width, 
+            // but typical bar chart for rank: smaller bar = better rank. Or larger bar = better rank.
+            // Let's make the bar proportional to (maxAvg - item.avg + 1) to show "better" as "larger"
+            const range = Math.max(maxAvg - 1, 1);
+            const score = maxAvg - item.avg + 1;
+            const widthPct = Math.max(5, (score / (maxAvg)) * 100);
+
+            chartHtml += `<div class="topsis-bar-row">
+                <div class="topsis-bar-label">${item.alt}</div>
+                <div class="topsis-bar-wrapper">
+                    <div class="topsis-bar-fill" style="width: ${widthPct}%; background-color: rgba(255, 87, 34, 0.8);">
+                        <span class="topsis-bar-value">${item.avg.toFixed(2)}</span>
+                    </div>
+                </div>
+            </div>`;
+        });
+        chartContainer.innerHTML = chartHtml;
+    }
+
+    // Clone charts for side-by-side comparison
+    const updateClone = (srcId, destId) => {
+        const src = document.getElementById(srcId);
+        const dest = document.getElementById(destId);
+        if (src && dest) {
+            dest.innerHTML = src.innerHTML;
+        }
+    };
+
+    updateClone('topsis-bars-container', 'topsis-bars-container-dup');
+    updateClone('moora-bars-container', 'moora-bars-container-dup');
+    updateClone('saw-bars-container', 'saw-bars-container-dup');
+
+    // Render VIKOR (Q) bar chart for comparison (smaller Q = better, so we invert bar width)
+    const vikorBarsContainer = document.getElementById('vikor-bars-container-dup');
+    if (vikorBarsContainer) {
+        const Q = currentData.Q || [];
+        const alternatives = currentData.alternatives || [];
+        if (Q.length > 0 && alternatives.length > 0) {
+            const qItems = alternatives.map((alt, idx) => ({ alt, qVal: Q[idx] !== undefined ? Q[idx] : 0 }));
+            qItems.sort((a, b) => a.qVal - b.qVal); // sort ascending (best first)
+            const maxQ = Math.max(...qItems.map(it => it.qVal));
+            const minQ = Math.min(...qItems.map(it => it.qVal));
+            const range = maxQ - minQ || 1;
+
+            let vikorChartHtml = '';
+            qItems.forEach(item => {
+                // Invert: smaller Q gets wider bar (better rank = larger bar visually)
+                const widthPct = Math.max(5, ((maxQ - item.qVal) / range) * 95 + 5);
+                vikorChartHtml += `<div class="topsis-bar-row">
+                    <div class="topsis-bar-label">${item.alt}</div>
+                    <div class="topsis-bar-wrapper">
+                        <div class="topsis-bar-fill" style="width: ${widthPct}%; background: linear-gradient(90deg, rgba(156,39,176,0.85), rgba(103,58,183,0.7));">
+                            <span class="topsis-bar-value">${item.qVal.toFixed(4)}</span>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            vikorBarsContainer.innerHTML = vikorChartHtml;
+        }
+    }
+
+
 }
 
 function switchTab(tabId) {
@@ -1466,16 +1683,24 @@ function switchTab(tabId) {
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
     document.getElementById('tab-' + tabId).classList.add('active');
-    document.getElementById('tab-btn-' + tabId).classList.add('active');
+    document.querySelectorAll(`.tab-btn[data-tab="${tabId}"]`).forEach(el => el.classList.add('active'));
+
+    // Always scroll to top instantly when switching tabs
+    window.scrollTo({ top: 0 });
 }
 
 // TOPSIS logic has been moved to topsis.js
 function resetToDefaults() {
     currentData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-    document.getElementById('numExperts').value = DEFAULT_DATA.numExperts;
-    document.getElementById('alphaKe').value = DEFAULT_DATA.alphaKe;
+
+    // Reset inputs to default values
+    if (document.getElementById('numExperts')) document.getElementById('numExperts').value = DEFAULT_DATA.numExperts;
+    if (document.getElementById('numCriteria')) document.getElementById('numCriteria').value = DEFAULT_DATA.criteria.length;
+    if (document.getElementById('numAlternatives')) document.getElementById('numAlternatives').value = DEFAULT_DATA.alternatives.length;
+    if (document.getElementById('alphaKe')) document.getElementById('alphaKe').value = DEFAULT_DATA.alphaKe;
+    if (document.getElementById('vValue')) document.getElementById('vValue').value = DEFAULT_DATA.vValue;
+
     initializeEstimates();
-    updateExpertNameInputs();
     updateTables();
 }
 
