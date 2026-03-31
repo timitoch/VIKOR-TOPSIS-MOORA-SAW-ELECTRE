@@ -77,83 +77,83 @@ const DEFAULT_DATA = {
     expertEstimates: [
         // Німеччина
         [
-            [4, 4, 5, 5, 4, 3, 2, 5, 4, 5],
-            [5, 4, 5, 4, 4, 3, 2, 5, 4, 5],
-            [4, 3, 5, 4, 3, 3, 2, 4, 3, 4],
-            [5, 4, 5, 5, 4, 4, 2, 5, 4, 5],
-            [4, 4, 4, 4, 3, 3, 3, 4, 4, 4],
-            [5, 4, 5, 5, 4, 3, 2, 5, 4, 5],
-            [4, 3, 4, 4, 3, 3, 2, 4, 3, 4]
+            [4, 4, 5, 5, 4, 3, 4, 5, 3, 4],
+            [5, 4, 4, 5, 4, 3, 4, 5, 3, 4],
+            [4, 5, 5, 4, 4, 3, 4, 5, 3, 4],
+            [4, 4, 5, 5, 5, 3, 5, 5, 3, 4],
+            [4, 4, 5, 5, 4, 4, 3, 4, 3, 4],
+            [4, 4, 5, 5, 4, 3, 4, 5, 4, 4],
+            [3, 4, 5, 5, 4, 3, 4, 5, 3, 5]
         ],
         // Польща
         [
-            [4, 4, 4, 4, 3, 4, 4, 4, 5, 4],
-            [4, 4, 3, 4, 3, 4, 4, 4, 5, 4],
-            [3, 4, 3, 3, 3, 4, 4, 3, 4, 3],
-            [4, 5, 4, 4, 3, 4, 4, 4, 5, 4],
-            [3, 4, 3, 3, 3, 3, 4, 3, 4, 3],
-            [4, 4, 4, 4, 3, 4, 4, 4, 5, 4],
-            [3, 4, 3, 3, 3, 3, 4, 3, 4, 3]
+            [3, 4, 3, 3, 3, 4, 2, 3, 5, 3],
+            [4, 4, 3, 3, 3, 4, 2, 3, 5, 3],
+            [3, 3, 3, 4, 3, 4, 2, 3, 5, 3],
+            [3, 4, 3, 3, 4, 4, 3, 3, 5, 3],
+            [3, 4, 4, 3, 3, 5, 2, 4, 4, 3],
+            [3, 4, 3, 3, 3, 3, 2, 3, 5, 4],
+            [4, 4, 3, 3, 3, 4, 2, 2, 5, 3]
         ],
         // Канада
         [
-            [5, 4, 5, 4, 5, 5, 2, 5, 5, 5],
-            [5, 4, 4, 4, 5, 5, 2, 5, 5, 4],
-            [4, 4, 4, 3, 4, 5, 2, 4, 4, 4],
-            [5, 5, 5, 4, 5, 5, 2, 5, 5, 5],
-            [4, 4, 4, 3, 4, 4, 2, 4, 4, 4],
-            [5, 4, 5, 4, 5, 5, 2, 5, 5, 5],
-            [4, 4, 4, 3, 4, 4, 2, 4, 4, 4]
+            [4, 4, 4, 3, 4, 5, 4, 4, 5, 4],
+            [5, 4, 4, 3, 5, 5, 4, 4, 5, 4],
+            [4, 5, 4, 4, 4, 4, 4, 4, 5, 4],
+            [4, 4, 5, 3, 4, 5, 3, 5, 5, 4],
+            [4, 4, 4, 3, 4, 5, 4, 4, 4, 4],
+            [4, 4, 4, 3, 4, 5, 5, 4, 5, 5],
+            [3, 4, 4, 2, 4, 5, 4, 4, 5, 4]
         ],
         // Чехія
         [
-            [4, 5, 4, 4, 4, 4, 4, 4, 5, 4],
-            [4, 5, 4, 4, 4, 4, 4, 4, 5, 4],
-            [3, 4, 3, 3, 3, 3, 4, 3, 4, 3],
-            [4, 5, 4, 4, 4, 4, 4, 4, 5, 4],
-            [3, 4, 3, 3, 3, 3, 4, 3, 4, 3],
-            [4, 5, 4, 4, 4, 4, 4, 4, 5, 4],
-            [3, 4, 3, 3, 3, 3, 4, 3, 4, 3]
+            [4, 4, 4, 4, 3, 3, 3, 4, 4, 4],
+            [4, 5, 4, 4, 3, 3, 3, 4, 4, 4],
+            [4, 4, 5, 4, 4, 3, 3, 4, 4, 4],
+            [5, 4, 4, 5, 3, 4, 4, 4, 5, 4],
+            [4, 4, 4, 4, 3, 3, 2, 4, 4, 5],
+            [3, 4, 4, 4, 3, 2, 3, 3, 4, 4],
+            [4, 4, 3, 4, 3, 3, 3, 5, 3, 4]
         ],
         // Іспанія
         [
-            [4, 4, 3, 4, 4, 4, 4, 4, 5, 4],
-            [5, 4, 3, 4, 5, 4, 4, 4, 5, 4],
-            [4, 3, 3, 3, 4, 4, 4, 3, 4, 3],
-            [5, 4, 4, 4, 5, 4, 4, 4, 5, 4],
-            [4, 3, 3, 3, 4, 3, 4, 3, 4, 3],
-            [5, 4, 4, 4, 5, 4, 4, 4, 5, 4],
-            [4, 3, 3, 3, 4, 3, 4, 3, 4, 3]
+            [5, 4, 2, 4, 4, 4, 3, 3, 5, 3],
+            [5, 4, 3, 4, 5, 4, 3, 3, 5, 3],
+            [4, 5, 2, 4, 4, 5, 3, 4, 4, 3],
+            [5, 4, 2, 5, 4, 4, 4, 3, 5, 4],
+            [5, 4, 2, 4, 4, 4, 2, 3, 5, 3],
+            [4, 4, 3, 4, 3, 4, 3, 3, 5, 3],
+            [5, 3, 2, 4, 4, 3, 3, 2, 4, 3]
         ],
         // Норвегія
         [
-            [5, 5, 5, 5, 5, 3, 1, 5, 4, 5],
-            [5, 5, 5, 5, 5, 3, 1, 5, 4, 5],
-            [4, 4, 4, 4, 5, 3, 1, 4, 3, 4],
-            [5, 5, 5, 5, 5, 4, 1, 5, 4, 5],
-            [4, 4, 4, 4, 5, 3, 1, 4, 3, 4],
-            [5, 5, 5, 5, 5, 3, 1, 5, 4, 5],
-            [4, 4, 4, 4, 5, 3, 1, 4, 3, 4]
+            [5, 5, 5, 5, 5, 2, 5, 5, 2, 5],
+            [5, 4, 5, 5, 5, 2, 5, 5, 3, 5],
+            [4, 5, 5, 5, 4, 3, 4, 5, 2, 5],
+            [5, 5, 4, 5, 5, 2, 5, 4, 2, 5],
+            [5, 5, 5, 4, 5, 2, 5, 5, 2, 4],
+            [5, 5, 5, 5, 5, 1, 5, 5, 1, 5],
+            [5, 5, 5, 5, 5, 2, 5, 5, 2, 5]
         ],
         // Португалія
         [
-            [4, 5, 3, 4, 4, 5, 4, 3, 5, 4],
-            [5, 5, 3, 4, 5, 5, 4, 3, 5, 4],
-            [4, 4, 3, 3, 4, 4, 4, 3, 4, 3],
-            [5, 5, 4, 4, 5, 5, 4, 4, 5, 4],
-            [4, 4, 3, 3, 4, 4, 4, 3, 4, 3],
-            [5, 5, 4, 4, 5, 5, 4, 4, 5, 4],
-            [4, 4, 3, 3, 4, 4, 4, 3, 4, 3]
+            [4, 4, 2, 3, 4, 5, 2, 3, 4, 3],
+            [5, 4, 2, 3, 4, 5, 2, 3, 4, 3],
+            [4, 5, 3, 3, 4, 5, 3, 4, 4, 4],
+            [4, 4, 2, 4, 5, 4, 2, 3, 5, 3],
+            [3, 4, 2, 3, 4, 5, 1, 3, 3, 3],
+            [4, 4, 2, 3, 3, 5, 2, 3, 4, 3],
+            [4, 3, 3, 3, 4, 5, 2, 3, 4, 3]
         ],
         // Швейцарія
         [
-            [5, 5, 5, 5, 5, 3, 1, 5, 4, 5],
-            [5, 5, 5, 5, 5, 3, 1, 5, 4, 5],
-            [4, 4, 4, 4, 4, 3, 1, 4, 3, 4],
-            [5, 5, 5, 5, 5, 4, 1, 5, 4, 5],
-            [4, 4, 4, 4, 4, 3, 1, 4, 3, 4],
-            [5, 5, 5, 5, 5, 3, 1, 5, 4, 5],
-            [4, 4, 4, 4, 4, 3, 1, 4, 3, 4]
+            [5, 5, 5, 5, 5, 1, 5, 5, 2, 5],
+            [5, 5, 4, 5, 5, 1, 5, 4, 2, 5],
+            [4, 5, 5, 5, 4, 2, 5, 5, 3, 5],
+            [5, 5, 5, 4, 5, 1, 4, 5, 2, 5],
+            [5, 4, 5, 5, 5, 1, 5, 5, 2, 4],
+            [5, 5, 5, 5, 5, 1, 5, 5, 1, 5],
+            [5, 5, 5, 5, 5, 1, 5, 5, 2, 5]
         ]
     ]
 };
@@ -1554,6 +1554,9 @@ function updateTables() {
     if (typeof generateSawTables === "function") {
         generateSawTables();
     }
+    if (typeof generateElectreTables === "function") {
+        generateElectreTables();
+    }
 
     // Generate comparison tab after all methods
     generateComparison();
@@ -1569,6 +1572,7 @@ function generateComparison() {
     const topsisRanks = rankings.topsis || {};
     const mooraRanks = rankings.moora || {};
     const sawRanks = rankings.saw || {};
+    const electreRanks = rankings.electre || {};
 
     let html = '<thead><tr>';
     html += '<th class="text-left">Альтернатива</th>';
@@ -1576,6 +1580,7 @@ function generateComparison() {
     html += '<th>TOPSIS (C<sub>i</sub>)</th>';
     html += '<th>MOORA (D<sub>i</sub><sup>*</sup>)</th>';
     html += '<th>SAW (S<sub>i</sub><sup>*</sup>)</th>';
+    html += '<th>ELECTRE</th>';
     html += '<th>Середній ранг</th>';
     html += '</tr></thead><tbody>';
 
@@ -1586,9 +1591,10 @@ function generateComparison() {
         const rTopsis = topsisRanks[idx] || 0;
         const rMoora = mooraRanks[idx] || 0;
         const rSaw = sawRanks[idx] || 0;
+        const rElectre = electreRanks[idx] || 0;
 
-        const avg = (rVikor + rTopsis + rMoora + rSaw) / 4;
-        comparisonData.push({ alt, avg, rVikor, rTopsis, rMoora, rSaw });
+        const avg = (rVikor + rTopsis + rMoora + rSaw + rElectre) / 5;
+        comparisonData.push({ alt, avg, rVikor, rTopsis, rMoora, rSaw, rElectre });
     });
 
     comparisonData.sort((a, b) => a.avg - b.avg);
@@ -1600,6 +1606,7 @@ function generateComparison() {
         html += `<td class="calculated">${item.rTopsis}</td>`;
         html += `<td class="calculated">${item.rMoora}</td>`;
         html += `<td class="calculated">${item.rSaw}</td>`;
+        html += `<td class="calculated">${item.rElectre}</td>`;
         html += `<td class="calculated bold-cell" style="color: #ffffff;">${item.avg.toFixed(2)}</td>`;
         html += '</tr>';
     });
@@ -1645,6 +1652,7 @@ function generateComparison() {
     updateClone('topsis-bars-container', 'topsis-bars-container-dup');
     updateClone('moora-bars-container', 'moora-bars-container-dup');
     updateClone('saw-bars-container', 'saw-bars-container-dup');
+    updateClone('electre-bars-container', 'electre-bars-container-dup');
 
     // Render VIKOR (Q) bar chart for comparison (smaller Q = better, so we invert bar width)
     const vikorBarsContainer = document.getElementById('vikor-bars-container-dup');
@@ -1679,13 +1687,30 @@ function generateComparison() {
 }
 
 function switchTab(tabId) {
+    // 1. Стандартна логіка перемикання класів
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
     document.getElementById('tab-' + tabId).classList.add('active');
     document.querySelectorAll(`.tab-btn[data-tab="${tabId}"]`).forEach(el => el.classList.add('active'));
 
-    // Always scroll to top instantly when switching tabs
+    // 2. ДОДАТИ: Виклик функцій розрахунку при відкритті вкладки
+    if (tabId === 'topsis') {
+        if (typeof generateTopsisTables === 'function') generateTopsisTables();
+    } else if (tabId === 'moora') {
+        if (typeof generateMooraTables === 'function') generateMooraTables();
+    } else if (tabId === 'saw') {
+        if (typeof generateSawTables === 'function') generateSawTables();
+    } else if (tabId === 'electre') {
+        if (typeof generateElectreTables === 'function') generateElectreTables();
+    } else if (tabId === 'comparison') {
+        if (typeof generateTopsisTables === 'function') generateTopsisTables();
+        if (typeof generateMooraTables === 'function') generateMooraTables();
+        if (typeof generateSawTables === 'function') generateSawTables();
+        if (typeof generateElectreTables === 'function') generateElectreTables();
+        if (typeof generateComparison === 'function') generateComparison();
+    }
+
     window.scrollTo({ top: 0 });
 }
 

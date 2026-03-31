@@ -10,9 +10,11 @@
         .section {
             position: relative;
         }
+
         .controls {
             position: relative;
         }
+
         .method-badge {
             position: absolute;
             top: 20px;
@@ -25,6 +27,7 @@
             font-weight: bold;
             display: inline-block;
         }
+
         .method-badge-all {
             background-color: rgba(76, 175, 80, 0.2);
             color: #81c784;
@@ -34,17 +37,17 @@
 
 <body>
 
-    
     <div class="tabs-nav">
         <button data-tab="settings" class="tab-btn active" onclick="switchTab('settings')">Налаштування</button>
         <button data-tab="vikor" class="tab-btn" onclick="switchTab('vikor')">VIKOR</button>
         <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
         <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
         <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+        <button data-tab="electre" class="tab-btn" onclick="switchTab('electre')">ELECTRE</button>
         <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
     </div>
 
-    
+    <!-- SETTINGS TAB -->
     <div id="tab-settings" class="tab-content active">
         <div class="controls">
             <div class="method-badge method-badge-all">Усі методи</div>
@@ -88,7 +91,10 @@
         <div class="section">
             <div class="method-badge">VIKOR</div>
             <h2>Коефіцієнт вагомості α<sub>ke</sub></h2>
-            <p class="table-footnote" style="text-align: left; margin-top: -10px; margin-bottom: 15px;"><em>Цей коефіцієнт (від 0 до 1) визначає вагу між об'єктивною компетентністю експерта (посада/освіта) та його самооцінкою. Чим значення ближче до 1, тим більшу роль відіграє об'єктивна кваліфікація експерта, розрахована за першими таблицями.</em></p>
+            <p class="table-footnote" style="text-align: left; margin-top: -10px; margin-bottom: 15px;"><em>Цей
+                    коефіцієнт (від 0 до 1) визначає вагу між об'єктивною компетентністю експерта (посада/освіта) та
+                    його самооцінкою. Чим значення ближче до 1, тим більшу роль відіграє об'єктивна кваліфікація
+                    експерта, розрахована за першими таблицями.</em></p>
             <div class="input-group-inline">
                 <label>Значення α<sub>ke</sub></label>
                 <input type="number" id="alphaKe" step="0.1" min="0" max="1" value="0.8" oninput="updateTables()">
@@ -98,7 +104,11 @@
         <div class="section">
             <div class="method-badge">VIKOR</div>
             <h2>Значення v (вага стратегії максимуму)</h2>
-            <p class="table-footnote" style="text-align: left; margin-top: -10px; margin-bottom: 15px;"><em>Вага стратегії більшості критеріїв (0 ≤ v ≤ 1). Використовується в методі VIKOR для визначення агрегованого показника Q. Значення v > 0.5 означає перевагу голосування за "більшістю", v ≈ 0.5 відповідає "консенсусу", а v < 0.5 — позиції з правом вето.</em></p>
+            <p class="table-footnote" style="text-align: left; margin-top: -10px; margin-bottom: 15px;"><em>Вага
+                    стратегії більшості критеріїв (0 ≤ v ≤ 1). Використовується в методі VIKOR для визначення
+                    агрегованого показника Q. Значення v > 0.5 означає перевагу голосування за "більшістю", v ≈ 0.5
+                    відповідає "консенсусу", а v < 0.5 — позиції з правом вето.</em>
+            </p>
             <div class="input-group-inline" style="margin-bottom: 15px;">
                 <label for="vValue">Значення v:</label>
                 <input type="number" id="vValue" value="0.5" step="0.1" min="0" max="1"
@@ -157,11 +167,12 @@
             <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
             <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
             <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="electre" class="tab-btn" onclick="switchTab('electre')">ELECTRE</button>
             <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
         </div>
     </div>
 
-    
+    <!-- VIKOR TAB -->
     <div id="tab-vikor" class="tab-content">
         <div class="section">
             <h2>Показники кваліфікації експертів</h2>
@@ -207,7 +218,8 @@
 
         <div class="section">
             <h2>Значення показника Q та ранжування альтернатив</h2>
-            <div class="calc-formula" style="margin-bottom: 15px;">Введене значення v = <span id="display-vvalue">0.5</span></div>
+            <div class="calc-formula" style="margin-bottom: 15px;">Введене значення v = <span
+                    id="display-vvalue">0.5</span></div>
             <table id="table1_14"></table>
         </div>
 
@@ -219,9 +231,9 @@
             <div id="pyramid-container"></div>
             <div id="pyramid-legend"
                 style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; font-size: 14px; color: #a1a1aa;">
-                <div><span style="color: rgba(63, 81, 181, 1);">■<sub></div>
-                <div><span style="color: rgba(76, 175, 80, 1);">■<sub></div>
-                <div><span style="color: rgba(156, 39, 176, 1);">■<div>
+                <div><span style="color: rgba(63, 81, 181, 1);">■</span> S<sub>j</sub></div>
+                <div><span style="color: rgba(76, 175, 80, 1);">■</span> R<sub>j</sub></div>
+                <div><span style="color: rgba(156, 39, 176, 1);">■</span> Q</div>
             </div>
         </div>
 
@@ -231,29 +243,30 @@
             <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
             <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
             <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="electre" class="tab-btn" onclick="switchTab('electre')">ELECTRE</button>
             <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
         </div>
     </div>
 
-    
+    <!-- TOPSIS TAB -->
     <div id="tab-topsis" class="tab-content">
         <div class="section">
             <h2>Матриця рішень з агрегованими оцінками альтернатив</h2>
             <p class="table-footnote"><em>Ця матриця аналогічна результатам першого етапу методу VIKOR, де оцінки
-                    експертів агреговані з урахуванням їхньої компетентності.<p>
+                    експертів агреговані з урахуванням їхньої компетентності.</em></p>
             <table id="table_topsis_1"></table>
         </div>
 
         <div class="section">
             <h2>Вагові коефіцієнти критеріїв</h2>
-            <p class="table-footnote"><em>Обчислені на першому етапі (в методі VIKOR).<p>
+            <p class="table-footnote"><em>Обчислені на першому етапі (в методі VIKOR).</em></p>
             <table id="table_topsis_1_weights"></table>
         </div>
 
         <div class="section">
             <h2>Нормалізована матриця рішень</h2>
             <div class="calc-formula">
-                r<sub>ij<sub> sub>)²
+                r<sub>ij</sub> = x<sub>ij</sub> / √∑(x<sub>ij</sub>)²
             </div>
             <table id="table_topsis_2"></table>
         </div>
@@ -261,7 +274,7 @@
         <div class="section">
             <h2>Зважена нормалізована матриця рішень</h2>
             <div class="calc-formula">
-                v<sub>ij<sub> · r<sub>ij</sub>
+                v<sub>ij</sub> = w<sub>j</sub> · r<sub>ij</sub>
             </div>
             <table id="table_topsis_3"></table>
         </div>
@@ -274,7 +287,7 @@
         <div class="section">
             <h2>Відстані до ідеальних розв'язків</h2>
             <div class="calc-formula">
-                D<sub>i<sub> - v<sub>j<sub>⁻ = √∑(v<sub>ij</sub> -
+                D<sub>i</sub>⁺ = √∑(v<sub>ij</sub> - v<sub>j</sub>⁺)²; D<sub>i</sub>⁻ = √∑(v<sub>ij</sub> -
                 v<sub>j</sub>⁻)²
             </div>
             <table id="table_topsis_5"></table>
@@ -299,11 +312,12 @@
             <button data-tab="topsis" class="tab-btn active" onclick="switchTab('topsis')">TOPSIS</button>
             <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
             <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="electre" class="tab-btn" onclick="switchTab('electre')">ELECTRE</button>
             <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
         </div>
     </div>
 
-    <!-- MOORA TAB CONTENT -->
+    <!-- MOORA TAB -->
     <div id="tab-moora" class="tab-content">
         <div class="section">
             <h2>Матриця рішень з агрегованими оцінками альтернатив</h2>
@@ -324,7 +338,8 @@
         </div>
 
         <div class="section">
-            <h2>Зважена нормалізована матриця рішень з ваговими коефіцієнтами критеріїв та показниками A*, D<sub>i</sub><sup>*</sup></h2>
+            <h2>Зважена нормалізована матриця рішень з ваговими коефіцієнтами критеріїв та показниками A*,
+                D<sub>i</sub><sup>*</sup></h2>
             <div class="calc-formula">
                 v<sub>ij</sub> = w<sub>j</sub> · r<sub>ij</sub>
             </div>
@@ -342,11 +357,12 @@
             <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
             <button data-tab="moora" class="tab-btn active" onclick="switchTab('moora')">MOORA</button>
             <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="electre" class="tab-btn" onclick="switchTab('electre')">ELECTRE</button>
             <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
         </div>
     </div>
 
-    <!-- SAW TAB CONTENT -->
+    <!-- SAW TAB -->
     <div id="tab-saw" class="tab-content">
         <div class="section">
             <h2>Матриця рішень з агрегованими оцінками альтернатив</h2>
@@ -361,13 +377,15 @@
         <div class="section">
             <h2>Нормалізована матриця рішень</h2>
             <div class="calc-formula" style="font-size: 0.9em;">
-                Max: r<sub>ij</sub> = x<sub>ij</sub> / max(x<sub>j</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; Min: r<sub>ij</sub> = min(x<sub>j</sub>) / x<sub>ij</sub>
+                Max: r<sub>ij</sub> = x<sub>ij</sub> / max(x<sub>j</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; Min:
+                r<sub>ij</sub> = min(x<sub>j</sub>) / x<sub>ij</sub>
             </div>
             <table id="table_saw_2"></table>
         </div>
 
         <div class="section">
-            <h2>Зважена нормалізована матриця рішень з ваговими коефіцієнтами критеріїв та показником S<sub>i</sub><sup>*</sup></h2>
+            <h2>Зважена нормалізована матриця рішень з ваговими коефіцієнтами критеріїв та показником
+                S<sub>i</sub><sup>*</sup></h2>
             <div class="calc-formula">
                 v<sub>ij</sub> = w<sub>j</sub> · r<sub>ij</sub><br>
                 S<sub>i</sub><sup>*</sup> = ∑ v<sub>ij</sub>
@@ -386,11 +404,85 @@
             <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
             <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
             <button data-tab="saw" class="tab-btn active" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="electre" class="tab-btn" onclick="switchTab('electre')">ELECTRE</button>
             <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
         </div>
     </div>
 
-    <!-- COMPARISON TAB CONTENT -->
+    <!-- ELECTRE TAB -->
+    <div id="tab-electre" class="tab-content">
+        <div class="section">
+            <h2>Матриця рішень з агрегованими оцінками альтернатив</h2>
+            <table id="table_electre_1"></table>
+        </div>
+
+        <div class="section">
+            <h2>Вагові коефіцієнти критеріїв</h2>
+            <table id="table_electre_1_weights"></table>
+        </div>
+
+        <div class="section">
+            <h2>Нормалізована матриця рішень</h2>
+            <table id="table_electre_2"></table>
+        </div>
+
+        <div class="section">
+            <h2>Зважена нормалізована матриця рішень</h2>
+            <table id="table_electre_3"></table>
+        </div>
+
+        <div class="section">
+            <h2>Матриця узгодженості</h2>
+            <table id="table_electre_4"></table>
+        </div>
+
+        <div class="section">
+            <h2>Матриця неузгодженості</h2>
+            <table id="table_electre_5"></table>
+        </div>
+
+        <div class="section">
+            <h2>Порогові значення</h2>
+            <div id="electre-thresholds"></div>
+        </div>
+
+        <div class="section">
+            <h2>Матриця домінування за узгодженістю</h2>
+            <table id="table_electre_6"></table>
+        </div>
+
+        <div class="section">
+            <h2>Матриця домінування за неузгодженістю</h2>
+            <table id="table_electre_7"></table>
+        </div>
+
+        <div class="section">
+            <h2>Загальна матриця домінування</h2>
+            <table id="table_electre_8"></table>
+        </div>
+
+        <div class="section">
+            <h2>Ранжування</h2>
+            <table id="table_electre_9"></table>
+        </div>
+
+        <div class="section" id="electre-chart-section">
+            <h3 style="text-align: center;">Візуалізація ранжування</h3>
+            <div id="electre-bars-container" style="max-width: 800px; margin: 0 auto; padding-top: 20px;"></div>
+        </div>
+
+        <div class="tabs-nav" style="margin-top: 40px; margin-bottom: 20px;">
+            <button data-tab="settings" class="tab-btn" onclick="switchTab('settings')">Налаштування</button>
+            <button data-tab="vikor" class="tab-btn" onclick="switchTab('vikor')">VIKOR</button>
+            <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
+            <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
+            <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
+            <button data-tab="electre" class="tab-btn active" onclick="switchTab('electre')">ELECTRE</button>
+            <button data-tab="comparison" class="tab-btn" onclick="switchTab('comparison')">Порівняння</button>
+        </div>
+    </div>
+
+    <!-- COMPARISON TAB -->
     <div id="tab-comparison" class="tab-content">
         <div class="section">
             <h2>Зведена таблиця рангів альтернатив</h2>
@@ -401,28 +493,38 @@
             <h3 style="text-align: center;">Сумарний графік рангів (чим менше тим краще)</h3>
             <div id="comparison-bars-container" style="max-width: 800px; margin: 0 auto; padding-top: 20px;"></div>
         </div>
-        
+
         <div style="max-width: 1400px; margin: 0 auto 40px auto; display: flex; flex-direction: column; gap: 24px;">
             <h2 style="text-align: center; margin: 0;">Детальні візуалізації методів</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch;">
-                <div class="section" style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                <div class="section"
+                    style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
                     <h3 style="text-align: center; margin-bottom: 20px;">VIKOR</h3>
                     <div id="vikor-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
                 </div>
 
-                <div class="section" style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                <div class="section"
+                    style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
                     <h3 style="text-align: center; margin-bottom: 20px;">TOPSIS</h3>
                     <div id="topsis-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
                 </div>
 
-                <div class="section" style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                <div class="section"
+                    style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
                     <h3 style="text-align: center; margin-bottom: 20px;">MOORA</h3>
                     <div id="moora-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
                 </div>
 
-                <div class="section" style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                <div class="section"
+                    style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
                     <h3 style="text-align: center; margin-bottom: 20px;">SAW</h3>
                     <div id="saw-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
+                </div>
+                
+                <div class="section"
+                    style="margin: 0; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; max-width: none;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">ELECTRE</h3>
+                    <div id="electre-bars-container-dup" style="flex: 1; width: 100%; margin: 0 auto;"></div>
                 </div>
             </div>
         </div>
@@ -433,7 +535,9 @@
             <button data-tab="topsis" class="tab-btn" onclick="switchTab('topsis')">TOPSIS</button>
             <button data-tab="moora" class="tab-btn" onclick="switchTab('moora')">MOORA</button>
             <button data-tab="saw" class="tab-btn" onclick="switchTab('saw')">SAW</button>
-            <button data-tab="comparison" class="tab-btn active" onclick="switchTab('comparison')">Порівняння</button>
+            <button data-tab="electre" class="tab-btn" onclick="switchTab('electre')">ELECTRE</button>
+            <button data-tab="comparison" class="tab-btn active"
+                onclick="switchTab('comparison')">Порівняння</button>
         </div>
     </div>
 
@@ -441,6 +545,7 @@
     <script src="topsis.js"></script>
     <script src="moora.js"></script>
     <script src="saw.js"></script>
+    <script src="electre.js"></script>
 </body>
 
 </html>
